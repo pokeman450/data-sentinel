@@ -1,9 +1,12 @@
-🧠 Data Sentinel
+# 🧠 Data Sentinel
 
-![Python](https://img.shields.io/badge/python-3.10+-blue)
-![FastAPI](https://img.shields.io/badge/FastAPI-backend-green)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-db-blue)
-![Streamlit](https://img.shields.io/badge/Streamlit-ui-red)
+<p align="left">
+  <img src="https://img.shields.io/badge/python-3.10+-blue" />
+  <img src="https://img.shields.io/badge/FastAPI-backend-green" />
+  <img src="https://img.shields.io/badge/PostgreSQL-database-blue" />
+  <img src="https://img.shields.io/badge/Streamlit-dashboard-red" />
+  <img src="https://img.shields.io/badge/status-active-brightgreen" />
+</p>
 
 > A data quality, drift detection, and AI insights platform built with FastAPI, PostgreSQL, and Streamlit.
 
@@ -85,14 +88,20 @@ Streamlit Frontend
 **AI**
 - OpenAI GPT-4o / GPT-4o-mini
 
-DevOps
+**DevOps**
+- Uvicorn
+- Docker (optional)
 
-Uvicorn
-Docker (optional)
-📦 Installation
-1. Clone repository
+---
+
+## 📦 Installation
+
+### 1. Clone repository
+
+```bash
 git clone https://github.com/<your-username>/data-sentinel.git
 cd data-sentinel
+
 2. Create virtual environment
 python -m venv .venv
 .venv\Scripts\activate
