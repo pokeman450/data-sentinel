@@ -1,0 +1,63 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Database files (local dev only)
+# =========================
+*.db
+*.sqlite
+*.sqlite3
+
+# =========================
+# Docker
+# =========================
+docker-compose.override.yml
+
+# =========================
+# Data files (optional safety)
+# =========================
+*.csv
+*.parquet
+*.json
+
+# =========================
+# pytest / coverage
+# =========================
+.pytest_cache/
+.coverage
+htmlcov/
