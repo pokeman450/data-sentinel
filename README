@@ -1,12 +1,5 @@
 # 🧠 Data Sentinel
 
-<p align="left">
-  <img src="https://img.shields.io/badge/python-3.10+-blue" />
-  <img src="https://img.shields.io/badge/FastAPI-backend-green" />
-  <img src="https://img.shields.io/badge/PostgreSQL-database-blue" />
-  <img src="https://img.shields.io/badge/Streamlit-dashboard-red" />
-  <img src="https://img.shields.io/badge/status-active-brightgreen" />
-</p>
 
 > A data quality, drift detection, and AI insights platform built with FastAPI, PostgreSQL, and Streamlit.
 
