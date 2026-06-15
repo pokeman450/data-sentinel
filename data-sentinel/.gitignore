@@ -16,6 +16,7 @@ ENV/
 # =========================
 .env
 .env.*
+!.env.example
 
 # =========================
 # IDE / Editor
@@ -42,6 +43,7 @@ Thumbs.db
 *.db
 *.sqlite
 *.sqlite3
+pgdata/
 
 # =========================
 # Docker
@@ -49,15 +51,26 @@ Thumbs.db
 docker-compose.override.yml
 
 # =========================
-# Data files (optional safety)
-# =========================
-*.csv
-*.parquet
-*.json
-
-# =========================
-# pytest / coverage
+# Python testing / coverage
 # =========================
 .pytest_cache/
 .coverage
 htmlcov/
+
+# =========================
+# Data files (IMPORTANT FOR YOUR PROJECT)
+# =========================
+
+# Ignore private/local datasets
+data/private/
+datasets/private/
+
+# Keep demo datasets in repo (DO NOT ignore CSV/JSON globally)
+
+# Ignore large processed artifacts if needed
+*.parquet
+
+# =========================
+# Streamlit / local cache
+# =========================
+.streamlit/

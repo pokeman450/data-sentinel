@@ -6,6 +6,7 @@ from backend.app.services.health import health_check
 from backend.app.services.profiler import generate_report
 from backend.app.core.db import SessionLocal
 from backend.app.models.report import DatasetReport
+from backend.app.services.ai_insights import generate_ai_insight
 
 router = APIRouter()
 
@@ -30,6 +31,8 @@ async def upload_csv(file: UploadFile = File(...)):
     # 1. Generate profiling report
     report = generate_report(df)
 
+    ai_insight = generate_ai_insight(report, file.filename)
+
     # 2. Save to database
     db = SessionLocal()
 
@@ -50,7 +53,8 @@ async def upload_csv(file: UploadFile = File(...)):
     return {
         "id": record.id,
         "filename": file.filename,
-        "report": report
+        "report": report,
+        "ai_insight": ai_insight
     }
 
 @router.get("/reports")

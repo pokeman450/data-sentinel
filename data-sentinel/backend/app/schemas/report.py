@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from typing import Dict, Any, List, Optional
 
 
+
 class ColumnIssue(BaseModel):
     status: str
     reason: str
