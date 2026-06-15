@@ -1,0 +1,166 @@
+🧠 Data Sentinel
+
+
+
+
+
+
+
+
+
+
+A data quality, drift detection, and AI insights platform built with FastAPI, PostgreSQL, and Streamlit.
+
+Upload CSV datasets and automatically generate:
+
+Data quality reports
+Column-level health scoring
+Missing value detection
+Schema + distribution drift analysis
+AI-generated insights (optional GPT-powered layer)
+Historical dataset tracking
+🚀 Key Features
+📊 Data Profiling Engine
+Row/column statistics
+Missing value detection
+Duplicate row detection
+Memory usage estimation
+Automatic type inference
+🧠 Column Health Scoring
+
+Each column is classified as:
+
+good → clean and usable
+warning → moderate missingness
+bad → fully null or schema issue
+
+Detects:
+
+Fully null columns
+High missing rate (>30%)
+Broken schema columns (Unnamed)
+🔄 Dataset Drift Detection
+
+Compares datasets over time:
+
+Schema drift (added/removed columns)
+Type drift (data type changes)
+Distribution drift (mean/std shifts)
+Row growth or shrinkage
+🤖 AI Insights (Optional)
+
+Powered by OpenAI:
+
+Data quality interpretation
+Risk identification
+Recommendations for cleaning & monitoring
+
+Graceful fallback modes:
+
+No API key → disabled safely
+Quota exceeded → fallback message
+API errors → non-blocking system
+📈 Streamlit Dashboard
+Upload CSV files
+View dataset health score
+Visualize missing values
+Inspect column health
+View historical dataset reports
+🏗️ System Architecture
+Frontend (Streamlit)
+        ↓
+FastAPI Backend
+        ↓
+Data Processing Layer (Pandas / Profiler / Drift Engine)
+        ↓
+PostgreSQL (Dataset storage + reports)
+        ↓
+OpenAI API (AI insights - optional)
+📸 Dashboard Preview
+
+Add screenshots here after running Streamlit
+
+Example placeholders:
+
+Upload Screen
+Health Score Dashboard
+Column Health Table
+Missing Values Chart
+⚙️ Tech Stack
+
+Backend
+
+FastAPI
+SQLAlchemy
+Pandas
+NumPy
+Pydantic
+
+Frontend
+
+Streamlit
+
+Database
+
+PostgreSQL
+
+AI
+
+OpenAI GPT-4o / GPT-4o-mini
+
+DevOps
+
+Uvicorn
+Docker (optional)
+📦 Installation
+1. Clone repo
+git clone https://github.com/<your-username>/data-sentinel.git
+cd data-sentinel
+2. Create virtual environment
+python -m venv .venv
+.venv\Scripts\activate   # Windows
+3. Install dependencies
+pip install -r requirements.txt
+4. Setup environment variables
+
+Create .env file:
+
+OPENAI_API_KEY=your_key_here
+DATABASE_URL=postgresql://user:password@localhost:5432/datasentinel
+5. Run backend
+uvicorn backend.app.main:app --reload
+6. Run frontend
+streamlit run frontend/dashboard.py
+🐳 Docker (Optional)
+docker compose up -d
+📡 API Endpoints
+Upload CSV
+POST /upload-csv
+Get reports
+GET /reports
+Get single report
+GET /reports/{id}
+AI status
+GET /reports/{id}/status
+📊 Example Output
+{
+  "rows": 143,
+  "columns": 11,
+  "missing_values": {...},
+  "column_health": {...},
+  "dataset_health_score": 45.45
+}
+🔐 Design Notes
+AI layer is optional and does not block ingestion
+All NumPy types are normalized before DB insert
+Background tasks handle AI processing asynchronously
+System degrades gracefully without OpenAI access
+📌 Roadmap
+ Advanced drift scoring (KL divergence)
+ Real-time streaming ingestion
+ Authentication system
+ Dataset comparison UI
+ Scheduled data quality monitoring
+👤 Author
+
+Tony Anamege

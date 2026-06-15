@@ -19,3 +19,13 @@ class DataQualityReport(BaseModel):
     memory_usage_mb: float
 
     column_health: Dict[str, ColumnIssue] = {}
+
+class DatasetReportDTO(BaseModel):
+    rows: int
+    columns: int
+    missing_values: Dict[str, int]
+    duplicate_rows: int
+    column_types: Dict[str, str]
+    memory_usage_mb: float
+    column_health: Dict[str, Any]
+    dataset_health_score: Optional[float] = None

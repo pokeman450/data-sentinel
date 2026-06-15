@@ -1,34 +1,70 @@
 import os
-from openai import OpenAI
+from dotenv import load_dotenv
+from openai import OpenAI, RateLimitError, AuthenticationError, OpenAIError
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+load_dotenv()
+
+
+def get_client():
+    """
+    Returns OpenAI client if API key exists, otherwise None.
+    """
+    api_key = os.getenv("OPENAI_API_KEY")
+
+    if not api_key:
+        return None
+
+    return OpenAI(api_key=api_key)
 
 
 def generate_ai_insight(report: dict, filename: str):
+    """
+    AI analysis with safe fallback for missing key, quota issues, or API errors.
+    """
+
+    client = get_client()
+
+    if client is None:
+        return "AI disabled: OPENAI_API_KEY not configured."
+
+    # Prevent huge payloads from breaking or costing too much
+    if len(str(report)) > 15000:
+        return "AI disabled: report too large for analysis."
+
     prompt = f"""
-You are a senior data engineer reviewing a dataset.
+You are a senior data engineer.
 
-Dataset name: {filename}
+Dataset: {filename}
 
-Here is the profiling report:
+Report:
 {report}
 
-Your task:
-1. Explain what is wrong in simple terms
-2. Identify key data quality risks
-3. Suggest concrete fixes
-4. Keep response concise and structured
-
-Return in bullet points.
+Provide insights:
+- issues
+- risks
+- recommendations
 """
 
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": "You are a senior data engineering assistant."},
-            {"role": "user", "content": prompt}
-        ],
-        temperature=0.3
-    )
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are a senior data engineer."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.3
+        )
 
-    return response.choices[0].message.content
+        return response.choices[0].message.content
+
+    except RateLimitError:
+        return "AI disabled: quota exceeded (rate limit / billing issue)."
+
+    except AuthenticationError:
+        return "AI disabled: invalid API key."
+
+    except OpenAIError as e:
+        return f"AI disabled: OpenAI API error - {str(e)}"
+
+    except Exception as e:
+        return f"AI error (unexpected): {str(e)}"
