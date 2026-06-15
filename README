@@ -1,164 +1,152 @@
-# 🧠 Data Sentinel
+🧠 Data Sentinel
 
-![Python](https://img.shields.io/badge/python-3.10+-blue)
-![FastAPI](https://img.shields.io/badge/FastAPI-backend-green)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-db-blue)
-![Streamlit](https://img.shields.io/badge/Streamlit-ui-red)
+A data quality, drift detection, and AI insights platform built with FastAPI, PostgreSQL, and Streamlit.
 
-> A data quality, drift detection, and AI insights platform built with FastAPI, PostgreSQL, and Streamlit.
+It transforms raw CSV datasets into structured insights including:
 
-Transforms raw CSV datasets into structured insights with automated profiling, validation, drift detection, and optional AI-powered analysis.
+Data profiling
+Column health scoring
+Schema + distribution drift detection
+AI-generated data insights (optional)
+Historical dataset tracking
+🚀 Key Features
+📊 Data Profiling Engine
+Row & column statistics
+Missing value detection
+Duplicate row detection
+Memory usage estimation
+Automatic type inference
+🧠 Column Health Scoring
 
----
+Each column is classified into:
 
-## 🚀 Core Capabilities
+🟢 good → clean and usable
+🟡 warning → moderate missingness
+🔴 bad → fully null or schema issue
 
-### 📊 Data Profiling Engine
-- Row and column statistics
-- Missing value detection
-- Duplicate row detection
-- Memory usage estimation
-- Automatic type inference
+Detects:
 
----
+Fully null columns
+High missing rate (>30%)
+Broken schema columns (Unnamed)
+🔄 Dataset Drift Detection
 
-### 🧠 Data Quality Engine
-- Column health scoring system
-- Detects fully null columns
-- Flags high missing rate columns (>30%)
-- Identifies schema issues (Unnamed columns)
+Compares datasets over time:
 
----
+Schema drift (added/removed columns)
+Type drift (data type changes)
+Distribution drift (mean/std shifts)
+Row growth or shrinkage
+🤖 AI Insights (Optional)
 
-### 🔄 Dataset Drift Detection
-- Schema drift (added / removed columns)
-- Type drift (data type changes)
-- Distribution drift (mean / std shifts)
-- Dataset size changes over time
+Powered by OpenAI:
 
----
+Data quality interpretation
+Risk identification
+Cleaning recommendations
 
-### 🤖 AI Insights (Optional)
-- GPT-powered dataset analysis
-- Risk detection
-- Cleaning recommendations
-- Graceful fallback when API is unavailable
+Graceful fallback behavior:
 
----
+No API key → disabled safely
+Quota exceeded → fallback message
+API errors → non-blocking system
+📈 Streamlit Dashboard
+Upload CSV files
+View dataset health score
+Visualize missing values
+Inspect column health
+Browse historical reports
+🏗️ System Architecture
+Frontend (Streamlit)
+        ↓
+FastAPI Backend
+        ↓
+Data Processing Layer (Pandas / Profiler / Drift Engine)
+        ↓
+PostgreSQL (Dataset storage + reports)
+        ↓
+OpenAI API (optional AI insights)
+📸 Dashboard Preview
 
-## 🏗️ Architecture
+Add screenshots here (important for portfolio impact)
 
-Streamlit Frontend  
-→ FastAPI Backend  
-→ Pandas Processing Layer  
-→ PostgreSQL Database  
-→ OpenAI API (optional AI layer)
+View	Description
+Upload Screen	CSV ingestion interface
+Health Score	Dataset quality summary
+Column Health	Per-column diagnostics
+Missing Values	Distribution chart
+⚙️ Tech Stack
 
----
+Backend
 
-## 📸 Dashboard Preview
+FastAPI
+SQLAlchemy
+Pandas
+NumPy
+Pydantic
 
-| View | Description |
-|------|------------|
-| Upload | CSV upload interface |
-| Health Score | Dataset quality summary |
-| Column Health | Column-level diagnostics |
-| Missing Values | Distribution visualization |
+Frontend
 
----
+Streamlit
 
-## ⚙️ Tech Stack
+Database
 
-**Backend**
-- FastAPI
-- SQLAlchemy
-- Pandas
-- NumPy
-- Pydantic
+PostgreSQL
 
-**Frontend**
-- Streamlit
+AI Layer
 
-**Database**
-- PostgreSQL
+OpenAI GPT-4o / GPT-4o-mini
 
-**AI**
-- OpenAI GPT-4o / GPT-4o-mini
+DevOps
 
-**DevOps**
-- Uvicorn
-- Docker (optional)
-
----
-
-## 📦 Installation
-
-### 1. Clone repository
-```bash
+Uvicorn
+Docker (optional)
+📦 Installation
+1. Clone repository
 git clone https://github.com/<your-username>/data-sentinel.git
 cd data-sentinel
-
-### 2. Create virtual environment
-```bash
+2. Create virtual environment
 python -m venv .venv
-
-# Windows
 .venv\Scripts\activate
-
-# Mac/Linux
-source .venv/bin/activate
-
-### 3. install dependencies
+3. Install dependencies
 pip install -r requirements.txt
+4. Configure environment
 
-### 4. Configure environment variables
+Create .env file:
+
 OPENAI_API_KEY=your_key_here
 DATABASE_URL=postgresql://user:password@localhost:5432/datasentinel
-
-### 5. Run backend(FastAPI)
+5. Run backend
 uvicorn backend.app.main:app --reload
-Backend runs at:
-
-http://127.0.0.1:8000
-
-API docs:
-
-http://127.0.0.1:8000/docs
-
-### 6. Run frontend (Streamlit)
+6. Run frontend
 streamlit run frontend/dashboard.py
-
-#Frontend runs at:
-
-http://localhost:8501
-
 🐳 Docker (Optional)
 docker compose up -d
-
 📡 API Endpoints
-| Method | Endpoint               | Description                        |
-| ------ | ---------------------- | ---------------------------------- |
-| POST   | `/upload-csv`          | Upload dataset and generate report |
-| GET    | `/reports`             | Get all stored reports             |
-| GET    | `/reports/{id}`        | Get specific report                |
-| GET    | `/reports/{id}/status` | AI processing status               |
-
-
-🔐 Design Principles
+Endpoint	Description
+POST /upload-csv	Upload dataset
+GET /reports	Get all reports
+GET /reports/{id}	Get single report
+GET /reports/{id}/status	AI processing status
+📊 Example Output
+{
+  "rows": 143,
+  "columns": 11,
+  "missing_values": {},
+  "column_health": {},
+  "dataset_health_score": 45.45
+}
+🔐 Design Notes
 AI layer is optional and non-blocking
-System works fully without OpenAI API
-NumPy types normalized before database storage
-Background tasks handle AI processing asynchronously
-Fail-safe design for quota / auth / API errors
-
+NumPy types normalized before DB insertion
+Background tasks handle AI processing
+System works fully without OpenAI
 📌 Roadmap
-Advanced drift scoring (KL divergence / Jensen-Shannon)
-Real-time streaming ingestion
-Authentication system (JWT / OAuth2)
-Dataset comparison UI (before vs after)
-Scheduled data quality monitoring
-Export reports (PDF / CSV)
-
-Author
+ Advanced drift scoring (KL divergence)
+ Real-time streaming ingestion
+ Authentication system
+ Dataset comparison UI
+ Scheduled monitoring jobs
+👤 Author
 
 Tony Anamege
